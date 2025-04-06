@@ -4,307 +4,751 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Prince's Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             background-color: rgb(0, 0, 33);
             color: whitesmoke;
-            font-family: poppins, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, #4b4b9c, #00fff2);
+            z-index: 1001;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0e0e1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border: 5px solid #4b4b9c;
+            border-top-color: #00fff2;
+            border-radius: 50%;
+            animation: loading 0.75s ease infinite;
+        }
+
+        @keyframes loading {
+            from {
+                transform: rotate(0turn)
+            }
+
+            to {
+                transform: rotate(1turn)
+            }
         }
 
         nav {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             height: 80px;
-            background-color: rgb(18, 18, 62);
+            backdrop-filter: blur(10px);
+            background-color: rgba(18, 18, 62, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         nav ul {
             display: flex;
-            justify-content: center;
+            list-style: none;
         }
 
         nav ul li {
-            list-style: none;
-            margin: 0 23px;
+            margin: 0 15px;
+            transform-style: preserve-3d;
         }
 
         nav ul li a {
             text-decoration: none;
             color: white;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            transition: transform 0.3s ease;
         }
 
         nav ul li a:hover {
             color: rgb(153, 153, 226);
-            font-size: 1.02rem;
+            transform: translateZ(20px);
         }
 
-        main hr {
-            border: 0;
-            background: #9c97f1;
-            height: 1.2px;
-            margin: 40px 84px;
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00fff2, transparent);
+            transition: width 0.3s ease;
         }
 
-        .left {
-            font-size: 1.5rem;
+        nav ul li a:hover::after {
+            width: 100%;
         }
 
-        .firstsection {
+        .hero {
             display: flex;
-            justify-content: space-around;
-            margin: 130px 0;
+            justify-content: space-between;
             align-items: center;
-        }
-
-        .firstsection>div {
-            width: 30%;
-        }
-
-        .leftsection {
-            font-size: 3rem;
-        }
-
-        .leftsection .buttons {
-            padding: 50px 0;
-        }
-        a:link{
+            padding: 100px 50px;
+            background: linear-gradient(135deg, #1e2167, #4b4b9c);
             color: white;
-            background-color: transparent;
-            text-decoration: none;
+            perspective: 2000px;
+            transform-style: preserve-3d;
         }
 
-        .leftsection .btn {
-            padding: 12px;
+        .hero .leftsection {
+            max-width: 50%;
+            transform: translateZ(50px);
+            animation: float-3d 5s ease-in-out infinite;
+        }
+
+        .hero .leftsection h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #4b4b9c, #00fff2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 400%;
+            animation: gradient 5s linear infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .hero .leftsection p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid white;
+            animation: typing1 4s steps(40, end), blink 0.5s step-end infinite;
+        }
+
+        @keyframes typing1 {
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 60%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            from {
+                border-color: transparent;
+            }
+
+            to {
+                border-color: white;
+            }
+        }
+
+        .hero .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero .btn {
+            padding: 12px 20px;
             background: #1e2167;
             color: white;
             border: 2px solid white;
             border-radius: 6px;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .rightsection img {
-            width: 80%;
-        }
-
-        .purple {
-            color: rgb(132, 35, 223);
-        }
-
-        .text-gray {
-            color: gray;
-        }
-
-        #element {
-            color: rgb(132, 35, 223);
-        }
-
-        .secondSection {
-            max-width: 80vw;
-            margin: auto;
-            height: 80vh;
-        }
-
-        .secondSection h1 {
-            font-size: 1.9rem;
-        }
-
-        .secondSection .box {
+        .hero .btn:hover {
             background: white;
-            width: 79vw;
-            height: 2px;
-            margin: 56px 0;
+            color: #1e2167;
+        }
+
+        .hero model-viewer {
+            width: 40%;
+            height: 400px;
+            transform: translateZ(100px) rotateY(-15deg);
+            animation: rotate-3d 8s ease-in-out infinite;
+            --poster-color: transparent;
+            --progress-bar-color: #00fff2;
+            --progress-bar-height: 2px;
+        }
+
+        @keyframes rotate-3d {
+            0%, 100% {
+                transform: translateZ(100px) rotateY(-15deg);
+            }
+            50% {
+                transform: translateZ(150px) rotateY(15deg);
+            }
+        }
+
+        .hero img {
+            width: 40%;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 242, 0.3));
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: float-image 8s ease-in-out infinite;
+        }
+
+        @keyframes float-image {
+             0%, 100% {
+                transform: translateZ(50px) rotateY(-15deg) translateY(0);
+            }
+            50% {
+                transform: translateZ(100px) rotateY(15deg) translateY(-20px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float-3d {
+            0%,
+            100% {
+                transform: translateZ(50px) rotateX(0deg);
+            }
+
+            50% {
+                transform: translateZ(100px) rotateX(5deg);
+            }
+        }
+
+        .work-section {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .work-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .work-section .box {
             display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .secondSection .vertical {
-            height: 93px;
-            width: 1px;
-            background-color: white;
-            margin: 0 120px;
-        }
-
-        .image-top {
-            width: 23px;
+        .work-section .vertical {
+            background: rgba(30, 33, 103, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            width: 280px;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            top: -32px;
-            left: -9px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: cardGlow 3s infinite;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
-        .vertical-title {
-            position: relative;
-            top: 75px;
-            width: 150px;
-            font-size: 14px;
+        .work-section .vertical::before,
+        .work-section .vertical::after {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            background: linear-gradient(45deg,
+                    #ff0000, #ff7300, #fffb00, #48ff00,
+                    #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400%;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            z-index: -1;
+            animation: steam 20s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 15px;
+            transform: translateZ(-1px);
         }
 
-        .vertical-desc {
+        .work-section .vertical::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%,
+                    rgba(255, 255, 255, 0.1),
+                    transparent 70%);
+        }
+
+        @keyframes steam {
+            0% {
+                background-position: 0 0;
+            }
+
+            50% {
+                background-position: 400% 0;
+            }
+
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        .work-section .vertical::after {
+            filter: blur(50px);
+        }
+
+        .work-section .vertical:hover {
+            transform: translateY(-15px) rotateX(10deg) rotateY(15deg);
+            border-color: transparent;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            background: rgba(40, 43, 123, 0.9);
+        }
+
+        .work-section .vertical:hover::before,
+        .work-section .vertical:hover::after {
+            opacity: 1;
+        }
+
+        .work-section .vertical:hover h3 {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .work-section .vertical h3 {
+            color: #8f8fff;
+            margin-bottom: 15px;
             position: relative;
-            top: 86px;
-            color: gray;
-            width: 150px;
-            font-size: 9px;
+            transition: all 0.3s ease;
+            transform: translateZ(30px);
+        }
+
+        .work-section .vertical h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    #00fff2,
+                    #00fff2,
+                    transparent);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .work-section .vertical:hover h3::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .work-section .vertical p {
+            color: #b8b8ff;
+            font-size: 0.9em;
+            line-height: 1.6;
+            transform: translateZ(20px);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .work-section .vertical:hover p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @keyframes cardGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(75, 75, 156, 0.8);
+            }
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4b4b9c, #00fff2);
+            border-radius: 5px;
+            transition: width 1.5s ease;
         }
 
         footer {
             background-color: #0e0e1a;
-        }
-
-        .footer {
-            display: flex;
-            padding: 23px 122px;
-            justify-content: space-evenly;
-        }
-
-        .footer ul {
-            list-style: none;
-        }
-
-        .footer>div {
-            width: 223;
-        }
-
-        footer .footer-rights {
+            padding: 30px 50px;
             text-align: center;
             color: gray;
-            padding: 12px 0;
+        }
+
+        footer .social-icons {
+            margin: 20px 0;
+        }
+
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        footer .social-icons a:hover {
+            color: rgb(153, 153, 226);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero model-viewer {
+                width: 80%;
+                margin-top: 20px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="loader"></div>
+    <div class="progress-bar"></div>
+    <div id="particles-js"></div>
     <header>
         <nav>
             <div class="left">Prince's Portfolio</div>
-            <div class="right"></div>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/">About</a></li>
-                <li><a href="/">Services</a></li>
-                <li><a href="/">Projects</a></li>
-                <li><a href="/">Contact Me</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section class="firstsection">
+        <!-- Home Section -->
+        <section id="home" class="hero">
             <div class="leftsection">
-                Hii, My name is <span class="purple">Prince</span>
-
-
-                <div> and i am Passionate</div>
-                <span id="element"></span>
+                <h1>Hi, I'm <span class="purple">Prince</span></h1>
+                <p>A passionate Web Developer and Designer creating modern, responsive,<br> and user-friendly websites.
+                </p>
                 <div class="buttons">
                     <button class="btn">Download Resume</button>
-                    <button class="btn"><a href="https://github.com/PrincePrajapatiXi"> Visit GitHub</a></button>
+                    <button class="btn"><a href="https://github.com/PrincePrajapatiXi" style="color: inherit;">Visit
+                            GitHub</a></button>
                 </div>
             </div>
-            <div class="rightsection">
-                <img src="bg.png" alt="">
-            </div>
+            <model-viewer
+                src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+                alt="3D Developer Avatar"
+                camera-controls
+                auto-rotate
+                rotation-per-second="30deg"
+                style="width: 40%; height: 400px;"
+                environment-image="neutral"
+                shadow-intensity="1"
+                camera-orbit="45deg 55deg 2.5m"
+                animation-name="Running"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+            >
+                <div class="progress-bar hide" slot="progress-bar">
+                    <div class="update-bar"></div>
+                </div>
+            </model-viewer>
         </section>
-        <hr>
-        <section class="secondSection">
-            <span class="text-gray"> What I have done so far</span>
-            <h1>Work Experience</h1>
 
+        <!-- About Section -->
+        <section id="about" class="work-section">
+            <h1>About Me</h1>
+            <p>I am a web developer with expertise in creating modern, responsive, and user-friendly websites.</p>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="work-section">
+            <h1>Services</h1>
             <div class="box">
                 <div class="vertical">
-                    <img class="image-top" src="html.png" alt="">
-                    <div class="vertical-title">
-                        HTML Developer (2024-2025)
-                    </div>
-                    <div class="vertical-desc">
-                        Skilled in writing clean, semantic HTML5 to build responsive, SEO-friendly websites. Focused on accessibility, performance, and cross-browser compatibility. Let’s create seamless, well-structured web experiences
-                    </div>
+                    <h3>Web Development</h3>
+                    <p>Building responsive and dynamic websites.</p>
                 </div>
                 <div class="vertical">
-                    <img class="image-top" src="node.js.png" alt="">
-                    <div class="vertical-title">
-                        Node.js Developer (2025-2026)
-                    </div>
-                    <div class="vertical-desc">
-                        Builds scalable backend services using Node.js, Express, and modern JavaScript. Expertise in RESTful APIs, real-time apps, and server optimization for high-performance web solutions
-                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>Designing user-friendly interfaces and experiences.</p>
                 </div>
                 <div class="vertical">
-                    <img class="image-top" src="pythan.png" alt="">
-                    <div class="vertical-title">
-                        Pythan Developer (2025-2026)
-                    </div>
-                    <div class="vertical-desc">
-                        Develops efficient Python apps for web, automation, and data science. Proficient in Django, Flask, and scripting—delivering clean, maintainable, and scalable code
+                    <h3>Backend Development</h3>
+                    <p>Creating scalable backend systems.</p>
                 </div>
-            </div> 
-            <div class="vertical">
-                <img class="image-top" src="Java.png" alt="">
-                <div class="vertical-title">
-                    Java Developer (2026-2027)
-                </div>
-                <div class="vertical-desc">
-                    Java: Robust, scalable, and platform-independent. Mastered OOP, multithreading, and frameworks like Spring. Passionate about building efficient, secure, and high-performance applications
             </div>
-        </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="work-section">
+            <h1>Projects</h1>
+            <div class="box">
+                <div class="vertical">
+                    <h3>Portfolio Website</h3>
+                    <p>A personal portfolio to showcase my work.</p>
+                </div>
+                <div class="vertical">
+                    <h3>E-commerce Platform</h3>
+                    <p>Developed a scalable e-commerce platform.</p>
+                </div>
+                <div class="vertical">
+                    <h3>Blog Website</h3>
+                    <p>Created a blog platform with dynamic content.</p>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
-        <div class="footer">
-            <div class="footer-first">
-                <h3>Prince's Developer Portfolio</h3>
-            </div>
-            <div class="footer-second">
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Services</li>
-                    <li><a href="mailto:princeprajapti2589@gmail.com">Contect Me</a></li>
-                </ul>
-            </div>
-            <div class="footer-third">
-                <div class="footer-second">
-                    <ul>
-                        <li>Home</li>
-                        <li>About</li>
-                        <li>Services</li>
-                        <li><a href="mailto:princeprajapti2589@gmail.com">Contect Me</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-fourth">
-                <div class="footer-second">
-                    <ul>
-                        <li>Home</li>
-                        <li>About</li>
-                        <li>Services</li>
-                        <li><a href="mailto:princeprajapti2589@gmail.com">Contect Me</a></li>
-                    </ul>
-                </div>
-            </div>
+        <div>Prince's Developer Portfolio</div>
+        <div class="social-icons">
+            <!-- GitHub Icon with Link -->
+            <a href="https://github.com/PrincePrajapatiXi" target="_blank" style="text-decoration: none;">
+                <i class="fab fa-github"></i>
+            </a>
+            <!-- Gmail Icon with Link -->
+            <a href="mailto:princeprajapti2589@gmail.com" style="text-decoration: none;">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <!-- LinkedIn Icon Placeholder -->
+            <a href="#" style="text-decoration: none;">
+                <i class="fab fa-linkedin"></i>
+            </a>
         </div>
-        <div class="footer-rights">
-            Copyright &#169 All rights reserved
-        </div>
+        <div>&copy; 2025 All rights reserved</div>
     </footer>
-
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <!-- Setup and start animation! -->
     <script>
-        var typed = new Typed('#element', {
-            strings: ['Web Developer', 'Graphic Designer', ' and Web Designer',],
-            typeSpeed: 50,
+        // Loading Animation
+        window.addEventListener('load', () => {
+            const loader = document.querySelector('.loader');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 500);
+        });
+
+        // Scroll Progress Bar
+        window.onscroll = () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        };
+
+        // 3D Tilt Effect
+        VanillaTilt.init(document.querySelectorAll('.vertical'), {
+            max: 25,
+            speed: 400,
+            scale: 1.05,
+            glare: true,
+            'max-glare': 0.5,
+            perspective: 1000,
+            gyroscope: true
+        });
+
+        // Particles Background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#4b4b9c' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4b4b9c',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: { enable: true, speed: 3 }
+            }
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Typed.js Effect
+        new Typed('.typing-text', {
+            strings: ['Web Developer', 'UI/UX Designer', 'Full Stack Developer'],
+            typeSpeed: 100,
+            backSpeed: 60,
+            loop: true
+        });
+
+        // GSAP Animations
+        gsap.from('.hero .leftsection', {
+            duration: 1,
+            x: -100,
+            opacity: 0,
+            ease: 'power4.out'
+        });
+
+        gsap.from('.hero model-viewer', {
+            duration: 1,
+            x: 100,
+            opacity: 0,
+            ease: 'power4.out'
+        });
+
+        // Scroll Animations for Cards
+        gsap.utils.toArray('.vertical').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top bottom-=100',
+                    toggleActions: 'play none none reverse'
+                },
+                y: 100,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.2
+            });
+        });
+
+        // Reveal on Scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-progress').forEach(el => observer.observe(el));
+
+        // Mousemove 3D Effect
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const x = (window.innerWidth / 2 - clientX) * 0.005;
+            const y = (window.innerHeight / 2 - clientY) * 0.005;
+
+            gsap.to('.hero', {
+                rotateX: y,
+                rotateY: -x,
+                duration: 0.5
+            });
         });
     </script>
-
 </body>
 
 </html>
