@@ -518,6 +518,163 @@
                 gap: 10px;
             }
         }
+
+        /* Add these media queries after your existing CSS */
+        @media screen and (max-width: 1200px) {
+            .hero {
+                padding: 80px 30px;
+            }
+
+            .hero .leftsection {
+                max-width: 60%;
+            }
+
+            .hero model-viewer {
+                width: 35%;
+            }
+
+            .work-section .box {
+                gap: 15px;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero .leftsection h1 {
+                font-size: 2.5rem;
+            }
+
+            .work-section .vertical {
+                width: 250px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                background: rgba(18, 18, 62, 0.95);
+                backdrop-filter: blur(10px);
+                width: 100%;
+                height: calc(100vh - 80px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: 0.3s ease;
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .hero .leftsection {
+                max-width: 100%;
+                margin-bottom: 40px;
+            }
+
+            .hero model-viewer {
+                width: 80%;
+                height: 300px;
+            }
+
+            .hero .buttons {
+                justify-content: center;
+            }
+
+            .work-section {
+                padding: 30px 15px;
+            }
+
+            .work-section .box {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .work-section .vertical {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            nav {
+                padding: 0 15px;
+            }
+
+            .hero .leftsection h1 {
+                font-size: 2rem;
+            }
+
+            .hero .leftsection p {
+                font-size: 1rem;
+            }
+
+            .hero .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero model-viewer {
+                height: 250px;
+            }
+
+            .work-section h1 {
+                font-size: 2rem;
+            }
+
+            footer {
+                padding: 20px;
+            }
+        }
+
+        /* Add hamburger menu for mobile */
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-btn {
+                display: block;
+                z-index: 999;
+            }
+
+            .menu-btn span {
+                display: block;
+                width: 25px;
+                height: 3px;
+                background: white;
+                margin: 5px 0;
+                transition: 0.3s ease;
+            }
+
+            .menu-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+        }
     </style>
 </head>
 
@@ -528,6 +685,11 @@
     <header>
         <nav>
             <div class="left">Prince's Portfolio</div>
+            <div class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -748,6 +910,41 @@
                 duration: 0.5
             });
         });
+
+        // Hamburger Menu Toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenu = document.querySelector('nav ul');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Disable animations on mobile devices for better performance
+        if (window.innerWidth < 768) {
+            document.querySelectorAll('*').forEach(element => {
+                element.style.animation = 'none';
+                element.style.transition = 'none';
+            });
+        }
+
+        // Optimize particles for mobile
+        if (window.innerWidth < 768) {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 30 },
+                    size: { value: 2 }
+                }
+            });
+        }
     </script>
 </body>
 
